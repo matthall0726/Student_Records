@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Student Records</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body class="login">
+    <div class="grid-login">
+      <div class="image-crest">
+        <img class="image" src="fiu-logo.png" height="125px" width="125px">
+      </div>
+      <div class="image-data-login">
+        <img class="image" src="database.png" height="200px" width="200px">
+      </div>
+      <div class="login-title">
+        <h2>University Student Records®</h2>
+      </div>        
+      <div class="username-password">
+        <label class="login-studentID" style="left: -87px;" for="username">STUDENT ID</label>
+        <input class= "login-studentID-Input" type="text" id="username" name="username">
+        <label class="login-password" style="left: -91px;" for="password">PASSWORD</label>
+        <input class="login-password-input" type="password" id="password" name="password">
+      </div>
+      <div class="submit-register">
+        <div style="margin-bottom: 5px;" id="error-message"></div>
+        <button id="submit-button" type="submit" name="submit-btn" value="submit" onclick="submitToLogin()">Login</button>
+        <p>Don't have an account? <button id="register-button" type="register" name="register-btn" 
+        value="register" onclick="changeToRegisterPage()">Register</button></p>
+      </div>
+      <script>
+        function changeToRegisterPage() {
+          window.location = "registerpage.html";
+        }
+      </script>
+      <script>
+        function submitToLogin() {
+          const usernameInput = document.getElementById('username');
+          const passwordInput = document.getElementById('password');
+
+
+          
+          const username = usernameInput.value;
+          const password = passwordInput.value;
+
+          console.log(username);
+          console.log(password);
+          
+          
+          const dbGet = window.dbGet.dbGet;
+
+          const sql = 'SELECT * FROM user_reg WHERE student_id = ? AND password = ?';
+          
+          
+          dbGet(sql, [username, password])
+            .then(row => {
+              if (row) {
+                proceedToLogin();
+                console.log('Login successful!');
+              } else {
+                var errorMessage = document.getElementById("error-message");
+                errorMessage.innerHTML = "Incorrect username or password.";
+                errorMessage.style.color = "red";
+                console.log('Invalid username or password.');
+              }
+            })
+            .catch(err => {
+              console.error(err.message);
+            });
+         
+        }
+        const passwordInput = document.getElementById('password');
+          passwordInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+              event.preventDefault(); // prevent form submission
+              submitToLogin(); // trigger the submitToLogin function
+            }
+          });
+
+      </script>
+      <script>
+        function proceedToLogin() {
+          let win = window.open('mainpage.html', '_self');
+          win.resizeTo(1500, 950);
+        }
+      </script>
+      <script>
+        const loginStudentIDInput = document.querySelector('.login-studentID-Input');
+        const loginStudentIDLabel = document.querySelector('.login-studentID');
+
+        loginStudentIDInput.addEventListener('focus', () => {
+          loginStudentIDLabel.classList.add('active');
+        });
+
+        loginStudentIDInput.addEventListener('blur', () => {
+          if (loginStudentIDInput.value === '') {
+            loginStudentIDLabel.classList.remove('active');
+          }
+        });
+      </script>
+      <script>
+        const loginPasswordInput = document.querySelector('.login-password-input');
+        const loginPasswordLabel = document.querySelector('.login-password');
+
+        loginPasswordInput.addEventListener('focus', () => {
+          loginPasswordLabel.classList.add('active');
+        });
+
+        loginPasswordInput.addEventListener('blur', () => {
+          if (loginPasswordInput.value === '') {
+            loginPasswordLabel.classList.remove('active');
+          }
+        });
+      </script>
+      
+    </div> 
+    
+  </body>
+</html>

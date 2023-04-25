@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Student Records</title>
+    <link rel="stylesheet" href="mainpage.css" />
+  </head>
+  <body class="mainpage">
+    <div class="mainpage">
+        <div class="my-button">
+            <div style="margin-bottom: 5px;" id="error-message"></div>
+            <button id="my-button" style="background-color: rgb(58, 57, 57); color: white;">Submit</button>
+        </div>
+        <div class="header">
+            <h1>Student Record Database</h1>
+        </div>
+         <div class="crud-method">
+            <select class="table_name" style="margin-bottom: 10px; background-color: rgb(58, 57, 57); margin-left: 7px; color: white; margin-top: 10px;">
+                <option value=""></option>
+                <option value="user_reg">User Registration</option>
+                <option value="courses">Courses</option>
+                <option value="enrollment">Enrollment</option>
+                <option value="schedule">Schedule</option>
+                <option value="department">Department</option>
+                <option value="professor">Professor</option>
+            </select>
+            <select class="crudOp" style="margin-bottom: 10px; margin-left: 7px; background-color: rgb(58, 57, 57); color: white;">
+                <option value=""></option>
+                <option id="create" value="create">Create</option>
+                <option id="read" value="read">Read</option>
+                <option id="update" value="update">Update</option>
+                <option id="delete" value="delete">Delete</option>
+            </select>
+            <input class="searchID" id="searchInput" style="background-color: rgb(58, 57, 57); margin-left: 7px; color: white;">
+            <div class="create-fields">
+                <label class="register-studentID" style="left: -87px;" for="username">STUDENT ID</label>
+                <input class="register-studentID-Input" type="text" id="student_id" name="username">
+                <label class="register-password" style="left: -91px;" for="password">PASSWORD</label>
+                <input class="register-password-input" type="password" id="password" name="password">
+                <label class="register-first-name" style="left: -88px;" for="first-name">FIRST NAME</label>
+                <input class="register-first-name-input" type="text" id="first-name" name="name">
+                <label class="register-last-name" style="left: -90px;" for="name">LAST NAME</label>
+                <input class="register-last-name-input" type="text" id="last-name" name="name">
+                <label class="register-address" style="left: -96px;" for="address">ADDRESS</label>
+                <input class="register-address-input" type="text" id="address" name="address">
+                <label class="register-phone" style="left: -75px;" for="phone">PHONE NUMBER</label>
+                <input class="register-phone-input" type="text" id="phone" name="phone">
+                <label class="register-email" style="left: -104px;" for="email">EMAIL</label>
+                <input class="register-email-input"type="text" id="email" name="email">
+                <label class="register-dob" style="left: -78px;" for="dob">DATE OF BIRTH</label>
+                <input class="register-dob-input" type="text" id="dob" name="dob">
+            </div>
+        </div>
+        <div class="crud-labels">
+            <label style="margin-bottom: 10px;" for="my-select">Table Name:</label>
+            <label style="margin-bottom: 10px;" for="my-select">Crud Method:</label>
+            <label class="searchIDLabel" for="my-select">Search ID:</label>
+        </div>
+        <div class="maintable">
+            <table id="main-table">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+        </div>
+        
+        <script>
+            const selectElement = document.querySelector('.table_name');
+            const createFields = document.querySelector('.create-fields');
+
+            selectElement.addEventListener('change', (event) => {
+            const selectedValue = event.target.value;
+            
+            // Determine which labels and inputs to create based on the selected value
+            let labels = [];
+            let inputs = [];
+            if (selectedValue === 'user_reg') {
+                labels = ['STUDENT ID', 'FIST NAME', 'LAST NAME', 'ADDRESS', 'PHONE', 'EMAIL', 'DATE OF BIRTH', 'PASSWORD'];
+                inputs = ['student_id', 'first_name', 'last_name', 'address', 'phone_number', 'email', 'date_of_birth', 'password'];
+            } else if (selectedValue === 'department') {
+                labels = ['DEPARTMENT ID', 'DEPARTMENT NAME'];
+                inputs = ['department_id', 'department_name'];
+            } else if (selectedValue === 'enrollment') {
+                labels = ['ENROLLMENT ID', 'STUDENT ID', 'COURSE ID', 'GRADE'];
+                inputs = ['enrollment_id', 'student_id', 'course_id', 'grade'];
+            } else if (selectedValue === 'courses') {
+                labels = ['COURSE ID', 'COURSE NAME', 'INSTRUCTOR NAME', 'START TIME', 'END TIME', 'COURSE DESCRIPTION'];
+                inputs = ['course_id', 'course_name', 'instructor_name', 'start_time', 'end_time', 'course_description'];
+            } else if (selectedValue === 'schedule') {
+                labels = ['STUDENT ID', 'COURSE ID', 'START TIME', 'END TIME', 'ROOM NUMBER'];
+                inputs = ['student_id', 'course_id', 'start_time', 'end_time', 'room_number'];
+
+            } else if (selectedValue === 'professor') {
+                labels = ['PROFESSOR ID', 'PROFESSOR NAME', 'ADDRESS', 'PHONE NUMBER', 'EMAIL ADDRESS'];
+                inputs = ['professor_id', 'professor_name', 'address', 'phone_number', 'email_address'];
+
+            }
+            
+            // Remove any existing labels and inputs
+            while (createFields.firstChild) {
+                createFields.removeChild(createFields.firstChild);
+            }
+            
+            // Create new labels and inputs based on the selected value
+            for (let i = 0; i < labels.length; i++) {
+                const label = document.createElement('label');
+                label.innerText = labels[i];
+                label.setAttribute('for', inputs[i]);
+                createFields.appendChild(label);
+                
+                const input = document.createElement('input');
+                input.setAttribute('type', 'text');
+                input.setAttribute('id', inputs[i]);
+                input.setAttribute('name', inputs[i]);
+                createFields.appendChild(input);
+            }
+        });
+
+        </script>
+       <script>
+            const crudOp = document.querySelector('.crudOp');
+            const searchIdLabel = document.querySelector('.searchIDLabel');
+            const searchIdInput = document.querySelector('.searchID');
+            const createEntry = document.querySelector('.create-fields');
+        
+            // Hide the search ID label, input, and create-fields div by default
+            searchIdLabel.style.display = 'none';
+            searchIdInput.style.display = 'none';
+            createEntry.style.display = 'none';
+        
+            // Add an event listener to the crudOp select element
+            crudOp.addEventListener('change', () => {
+                if (crudOp.value === 'create') {
+                    
+                    // Show the create-fields div
+                    createEntry.style.display = 'block';
+                    
+                    
+                    // Hide the search ID label and input
+                    searchIdLabel.style.display = 'none';
+                    searchIdInput.style.display = 'none';
+                } else if (crudOp.value === 'update' || crudOp.value === 'delete') {
+                    // Show the search ID label and input
+                    searchIdLabel.style.display = 'block';
+                    searchIdInput.style.display = 'block';
+                    
+                    // Hide the create-fields div
+                    createEntry.style.display = 'none';
+                } else {
+                    // Hide the search ID label, input, and create-fields div
+                    searchIdLabel.style.display = 'none';
+                    searchIdInput.style.display = 'none';
+                    createEntry.style.display = 'none';
+                }
+            });
+    </script>
+    
+        
+        <script>
+            // Add an event listener to the button
+            button = document.getElementById('my-button');
+            button.addEventListener('click', () => {
+            crudOperation = document.querySelector('.crudOp');
+            tableName = document.querySelector('.table_name');
+            searchInput = document.getElementById('searchInput');
+            primaryKeyValue = searchInput.value;
+            selectedTable = tableName.options[tableName.selectedIndex].value;
+            selectedOption = crudOperation.options[crudOperation.selectedIndex].value;
+
+            if (selectedOption === 'read') {
+                
+                myAPI.queryAll(selectedTable)
+                .then((result) => {
+                    const table = document.getElementById('main-table');
+                    const tbody = table.querySelector('tbody');
+                    const thead = table.querySelector('thead');
+                    const thRow = thead.querySelector('tr');
+                    thRow.innerHTML = '';
+                    result.columns.forEach((column) => {
+                    const th = document.createElement('th');
+                    th.textContent = column;
+                    thRow.appendChild(th);
+                    });
+                    tbody.innerHTML = '';
+                    result.rows.forEach((row) => {
+                    const tr = document.createElement('tr');
+                    result.columns.forEach((column) => {
+                        const td = document.createElement('td');
+                        td.textContent = row[column];
+                        tr.appendChild(td);
+                    });
+                    tbody.appendChild(tr);
+                    });
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+            } else if (selectedOption == 'create') {
+                button.textContent = 'Create Entry';
+                if (selectedTable === 'department') {
+                    const department_id = document.getElementById('department_id').value;
+                    const department_name = document.getElementById('department_name').value;
+                    console.log(department_id);
+                    console.log(department_name);
+
+                    myAPI.insertIntoTable('department', {department_id: department_id, department_name: department_name})
+                        .then((result) => {
+                            myAPI.queryAll('department')
+                                .then((result) => {
+                                    const table = document.getElementById('main-table');
+                                    const tbody = table.querySelector('tbody');
+                                    const thead = table.querySelector('thead');
+                                    const thRow = thead.querySelector('tr');
+                                    thRow.innerHTML = '';
+                                    result.columns.forEach((column) => {
+                                    const th = document.createElement('th');
+                                    th.textContent = column;
+                                    thRow.appendChild(th);
+                                    });
+                                    tbody.innerHTML = '';
+                                    result.rows.forEach((row) => {
+                                    const tr = document.createElement('tr');
+                                    result.columns.forEach((column) => {
+                                        const td = document.createElement('td');
+                                        td.textContent = row[column];
+                                        tr.appendChild(td);
+                                    });
+                                    tbody.appendChild(tr);
+                                    });
+                                })
+                                .catch((error) => {
+                                    console.error(error);
+                                });
+                        })
+                        .catch((err) => {
+                        console.error(err);
+                        var errorMessage = document.getElementById("error-message");
+                        errorMessage.innerHTML = err;
+                        errorMessage.style.color = "red";
+                    });
+                }
+
+                else if (selectedTable === 'courses') {
+                    const course_id = document.getElementById('course_id').value;
+                    const course_name = document.getElementById('course_name').value;
+                    const instructor_name = document.getElementById('instructor_name').value;
+                    const start_time = document.getElementById('start_time').value;
+                    const end_time = document.getElementById('end_time').value;
+                    const course_description = document.getElementById('course_description').value;
+
+                    myAPI.insertIntoTable('courses', {course_id: course_id, course_name: course_name, instructor_name: instructor_name, start_time: start_time, end_time: end_time, course_description: course_description})
+                        .then((result) => {
+                        console.log(result);
+                        })
+                        .catch((err) => {
+                        console.error(err);
+                    });
+                }
+                
+                else if (selectedTable === 'enrollment') {
+                    const enrollment_id = document.getElementById('enrollment_id').value;
+                    const student_id = document.getElementById('student_id').value;
+                    const course_id = document.getElementById('course_id').value;
+                    const grade = document.getElementById('grade').value;
+
+                    myAPI.insertIntoTable('enrollment', {enrollment_id: enrollment_id, student_id: student_id, course_id: course_id, grade: grade})
+                        .then((result) => {
+                        console.log(result);
+                        })
+                        .catch((err) => {
+                        console.error(err);
+                    });
+                } 
+                
+                else if (selectedTable === 'user_reg') {
+                    const student_id = document.getElementById('student_id').value;
+                    const first_name = document.getElementById('first_name').value;
+                    const last_name = document.getElementById('last_name').value;
+                    const address = document.getElementById('address').value;
+                    const phone_number = document.getElementById('phone_number').value;
+                    const email = document.getElementById('email').value;
+                    const date_of_birth = document.getElementById('date_of_birth').value;
+                    const password = document.getElementById('password').value;
+
+                    myAPI.insertIntoTable('user_reg', { student_id: student_id, first_name: first_name, last_name: last_name, address: address, phone_number: phone_number, email: email, date_of_birth: date_of_birth, password: password })
+                        .then((result) => {
+                        console.log(result);
+                        })
+                        .catch((err) => {
+                        console.error(err);
+                        });
+                }
+                else if (selectedTable === 'professor') {
+                    const professor_id = document.getElementById('professor_id').value;
+                    const professor_name = document.getElementById('professor_name').value;
+                    const address = document.getElementById('address').value;
+                    const phone_number = document.getElementById('phone_number').value;
+                    const email_address = document.getElementById('email_address').value;
+
+                    myAPI.insertIntoTable('professor', { professor_id: professor_id, professor_name: professor_name, address: address, phone_number: phone_number, email_address: email_address })
+                        .then((result) => {
+                        console.log(result);
+                        })
+                        .catch((err) => {
+                        console.error(err);
+                        });
+                }
+                else if (selectedTable === 'schedule') {
+                    const student_id = document.getElementById('student_id').value;
+                    const course_id = document.getElementById('course_id').value;
+                    const start_time = document.getElementById('start_time').value;
+                    const end_time = document.getElementById('end_time').value;
+                    const room_number = document.getElementById('room_number').value;
+
+                    myAPI.insertIntoTable('schedule', {student_id: student_id, course_id: course_id, start_time: start_time, end_time: end_time, room_number: room_number})
+                        .then((result) => {
+                            console.log(result);
+                        })
+                        .catch((err) => {
+                            console.error(err);
+                        });
+                }
+            } else if (selectedOption == 'update') {
+                myAPI.queryOne(selectedTable, primaryKeyValue)
+                    .then((row) => {
+                    // Use row object to display data in HTML table
+                    const table = document.getElementById('main-table');
+                    const tbody = table.querySelector('tbody');
+                    const thead = table.querySelector('thead');
+                    const thRow = thead.querySelector('tr');
+                    const columns = Object.keys(row);
+
+                    // Add column headers to the table
+                    thRow.innerHTML = '';
+                    columns.forEach((column) => {
+                        const th = document.createElement('th');
+                        th.textContent = column;
+                        thRow.appendChild(th);
+                    });
+
+                    // Get the name of the primary key column
+                    const primaryKeyColumn = thRow.querySelector('th').textContent;
+
+                    // Add row data to the table
+                    tbody.innerHTML = '';
+                    const tr = document.createElement('tr');
+                    columns.forEach((column) => {
+                        const td = document.createElement('td');
+                        td.textContent = row[column];
+                        if (column === primaryKeyColumn) {
+                        td.setAttribute('contenteditable', 'false');
+                        } else {
+                        td.setAttribute('contenteditable', 'true');
+                        }
+                        tr.appendChild(td);
+                    });
+                    tbody.appendChild(tr);
+
+                    // Add Save button to allow the user to save changes
+                    let saveBtn = tbody.nextElementSibling;
+                    if (!saveBtn || saveBtn.tagName.toLowerCase() !== 'button') {
+                        saveBtn = document.createElement('button');
+                        saveBtn.textContent = 'Save Changes';
+                        tbody.parentNode.insertBefore(saveBtn, tbody.nextSibling);
+                    }
+                    saveBtn.style.display = 'block';
+                    saveBtn.disabled = true;
+
+                    saveBtn.addEventListener('click', () => {
+                        saveBtn.style.display = 'none';
+                        const updateData = {};
+                        const rows = table.querySelectorAll('tbody tr');
+                        rows.forEach((row) => {
+                        const tds = row.querySelectorAll('td:not(:first-child)');
+                        tds.forEach((td, index) => {
+                            const column = columns[index + 1];
+                            updateData[column] = td.textContent;
+                        });
+                        myAPI.updateTableRow(selectedTable, primaryKeyColumn, primaryKeyValue, updateData)
+                            .then(() => {
+                            // Retrieve the updated row from the database and update the table
+                            myAPI.queryOne(selectedTable, primaryKeyValue)
+                                .then((updatedRow) => {
+                                // Update the row in the table with the new data
+                                const updatedTds = [];
+                                columns.forEach((column) => {
+                                    const td = document.createElement('td');
+                                    td.textContent = updatedRow[column];
+                                    updatedTds.push(td);
+                                });
+                                row.replaceChildren(...updatedTds);
+                                })
+                                .catch((error) => {
+                                console.error(error);
+                                });
+                            })
+                            .catch((error) => {
+                            console.error(error);
+                            });
+                        });
+                    });
+
+                    // Add event listener to capture changes made by the user
+                    tbody.addEventListener('input', () => {
+                        saveBtn.disabled = false; // enable Save button
+                    });
+                    })
+                    .catch((error) => {
+                    console.error(error);
+                    });
+                } else if (selectedOption == 'delete') {
+                    if (selectedTable == 'user_reg') {
+                    myAPI.deleteTableRow(selectedTable, primaryKeyValue, 'student_id')
+                        .then(() => {
+                            console.log('Row deleted successfully');
+                        })
+                        .catch((err) => {
+                            console.error(err);
+                        });
+                    }
+                    else if (selectedTable == 'courses') {
+                    myAPI.deleteTableRow(selectedTable, primaryKeyValue, 'course_id')
+                        .then(() => {
+                        console.log('Row deleted successfully');
+                        })
+                        .catch((err) => {
+                        console.error(err);
+                        });
+                    }
+                    else if (selectedTable == 'department') {
+                    myAPI.deleteTableRow(selectedTable, primaryKeyValue, 'department_id')
+                        .then(() => {
+                        console.log('Row deleted successfully');
+                        })
+                        .catch((err) => {
+                        console.error(err);
+                        });
+                    }
+                    else if (selectedTable == 'enrollment') {
+                    myAPI.deleteTableRow(selectedTable, primaryKeyValue, 'enrollment_id')
+                        .then(() => {
+                        console.log('Row deleted successfully');
+                        })
+                        .catch((err) => {
+                        console.error(err);
+                        });
+                    }
+                    else if (selectedTable == 'professor') {
+                    myAPI.deleteTableRow(selectedTable, primaryKeyValue, 'professor_id')
+                        .then(() => {
+                        console.log('Row deleted successfully');
+                        })
+                        .catch((err) => {
+                        console.error(err);
+                        });
+                    }
+                    else if (selectedTable == 'schedule') {
+                    myAPI.deleteTableRow(selectedTable, primaryKeyValue, 'student_id')
+                        .then(() => {
+                        console.log('Row deleted successfully');
+                        })
+                        .catch((err) => {
+                        console.error(err);
+                        });
+                    }
+
+                }
+
+
+
+
+
+            });
+        </script>
+          
+
+    
+      
+    </div> 
+    
+  </body>
+</html>

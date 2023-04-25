@@ -1,0 +1,40 @@
+{
+  "name": "student-records",
+  "productName": "student-records",
+  "version": "1.0.0",
+  "description": "My Electron application description",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package --arch=x64 --platform=darwin",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "echo \"No linting configured\"",
+    "build:debug": "electron-builder --debug",
+    "build:trace": "electron-builder --trace",
+    "build": "electron-builder --mac"
+  },
+  "keywords": [],
+  "author": {
+    "name": "Matthew Hall",
+    "email": "matt.hall0726@gmail.com"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "better-sqlite3": "^8.3.0",
+    "electron-log": "^5.0.0-beta.23",
+    "electron-squirrel-startup": "^1.0.0",
+    "sqlite3": "^5.1.6"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^6.1.1",
+    "@electron-forge/maker-deb": "^6.1.1",
+    "@electron-forge/maker-rpm": "^6.1.1",
+    "@electron-forge/maker-squirrel": "^6.1.1",
+    "@electron-forge/maker-zip": "^6.1.1",
+    "@electron/osx-sign": "^1.0.4",
+    "@electron/rebuild": "^3.2.10",
+    "electron": "24.0.0",
+    "electron-builder": "^24.2.1"
+  }
+}

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Student Records</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body class="register">
+    <div class="grid-register">
+      <div class="image-crest">
+        <img class="image" src="fiu-logo.png" height="125px" width="125px">
+      </div>
+      <div class="image-data-login">
+        <img class="image" src="database.png" height="200px" width="200px">
+      </div>
+      <div class="register-title">
+        <h2>Student Record Registration</h2>
+      </div>        
+      <div class="register-fields">
+        <label class="register-studentID" style="left: -87px;" for="username">STUDENT ID</label>
+        <input class="register-studentID-Input" type="text" id="student_id" name="username">
+        <label class="register-password" style="left: -91px;" for="password">PASSWORD</label>
+        <input class="register-password-input" type="password" id="password" name="password">
+        <label class="register-first-name" style="left: -88px;" for="first-name">FIRST NAME</label>
+        <input class="register-first-name-input" type="text" id="first-name" name="name">
+        <label class="register-last-name" style="left: -90px;" for="name">LAST NAME</label>
+        <input class="register-last-name-input" type="text" id="last-name" name="name">
+        <label class="register-address" style="left: -96px;" for="address">ADDRESS</label>
+        <input class="register-address-input" type="text" id="address" name="address">
+        <label class="register-phone" style="left: -75px;" for="phone">PHONE NUMBER</label>
+        <input class="register-phone-input" type="text" id="phone" name="phone">
+        <label class="register-email" style="left: -104px;" for="email">EMAIL</label>
+        <input class="register-email-input"type="text" id="email" name="email">
+        <label class="register-dob" style="left: -78px;" for="dob">DATE OF BIRTH</label>
+        <input class="register-dob-input" type="text" id="dob" name="dob">
+      </div>
+      <div class="submit-register">
+        <button id="submit-button" type="submit" name="submit-btn" value="submit" onclick="submitRegistration()">Submit</button>
+        <p>Already Registered? <button id="login-button" type="register" name="register-btn" 
+        value="register" onclick="backToLogin()">Login</button></p>
+      </div>
+      <script>
+        function backToLogin() {
+          window.location = "loginpage.html"
+          }
+      </script>
+      <script>
+        function submitRegistration() {
+          const studentIdInput = document.getElementById('student_id');
+          const firstNameInput = document.getElementById('first-name');
+          const lastNameInput = document.getElementById('last-name');
+          const addressInput = document.getElementById('address');
+          const phoneNumberInput = document.getElementById('phone');
+          const emailInput = document.getElementById('email');
+          const dobInput = document.getElementById('dob');
+          const passwordInput = document.getElementById('password');
+          
+
+        
+          const studentId = studentIdInput.value;
+          const firstName = firstNameInput.value;
+          const lastName = lastNameInput.value;
+          const address = addressInput.value;
+          const phoneNumber = phoneNumberInput.value;
+          const email = emailInput.value;
+          const dob = dobInput.value;
+          const password = passwordInput.value;
+
+          const insertUser = window.insertUser.insertUser;
+          
+          const sql = 'INSERT INTO user_reg (student_id, first_name, last_name, address, phone_number, email, date_of_birth, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+
+          const params = [studentId, firstName, lastName, address, phoneNumber, email, dob, password];
+
+          insertUser(sql, params, function (err) {
+            if (err) {
+              reject(err);
+            } else {
+              submitToLogin();
+              console.log('Inserted row with rowid ${this.lastID}');
+              resolve();
+            }
+          });
+        }
+        
+        
+      </script>
+      <script>
+        function submitToLogin() {
+          let win = window.open('mainpage.html', '_self');
+          win.resizeTo(1200, 900);
+        }
+      </script>
+      <script>
+        const registerStudentIDInput = document.querySelector('.register-studentID-Input');
+        const registerStudentIDLabel = document.querySelector('.register-studentID');
+
+        registerStudentIDInput.addEventListener('focus', () => {
+          registerStudentIDLabel.classList.add('active');
+        });
+
+        registerStudentIDInput.addEventListener('blur', () => {
+          if (registerStudentIDInput.value === '') {
+            registerStudentIDLabel.classList.remove('active');
+          }
+        });
+      </script>
+      <script>
+        const registerPasswordInput = document.querySelector('.register-password-input');
+        const registerPasswordLabel = document.querySelector('.register-password');
+
+        registerPasswordInput.addEventListener('focus', () => {
+          registerPasswordLabel.classList.add('active');
+        });
+
+        registerPasswordInput.addEventListener('blur', () => {
+          if (registerPasswordInput.value === '') {
+            registerPasswordLabel.classList.remove('active');
+          }
+        });
+      </script>
+      <script>
+        const registerFirstNameInput = document.querySelector('.register-first-name-input');
+        const registerFirstNameLabel = document.querySelector('.register-first-name');
+
+        registerFirstNameInput.addEventListener('focus', () => {
+          registerFirstNameLabel.classList.add('active');
+        });
+
+        registerFirstNameInput.addEventListener('blur', () => {
+          if (registerFirstNameInput.value === '') {
+            registerFirstNameLabel.classList.remove('active');
+          }
+        });
+      </script>
+      <script>
+        const registerLastNameInput = document.querySelector('.register-last-name-input');
+        const registerLastNameLabel = document.querySelector('.register-last-name');
+
+        registerLastNameInput.addEventListener('focus', () => {
+          registerLastNameLabel.classList.add('active');
+        });
+
+        registerLastNameInput.addEventListener('blur', () => {
+          if (registerLastNameInput.value === '') {
+            registerLastNameLabel.classList.remove('active');
+          }
+        });
+      </script>
+      <script>
+        const registerAddressInput = document.querySelector('.register-address-input');
+        const registerAddressLabel = document.querySelector('.register-address');
+
+        registerAddressInput.addEventListener('focus', () => {
+          registerAddressLabel.classList.add('active');
+        });
+
+        registerAddressInput.addEventListener('blur', () => {
+          if (registerAddressInput.value === '') {
+            registerAddressLabel.classList.remove('active');
+          }
+        });
+      </script>
+      <script>
+        const registerPhoneInput = document.querySelector('.register-phone-input');
+        const registerPhoneLabel = document.querySelector('.register-phone');
+
+        registerPhoneInput.addEventListener('focus', () => {
+          registerPhoneLabel.classList.add('active');
+        });
+
+        registerPhoneInput.addEventListener('blur', () => {
+          if (registerPhoneInput.value === '') {
+            registerPhoneLabel.classList.remove('active');
+          }
+        });
+      </script>
+      <script>
+        const registerEmailInput = document.querySelector('.register-email-input');
+        const registerEmailLabel = document.querySelector('.register-email');
+
+        registerEmailInput.addEventListener('focus', () => {
+          registerEmailLabel.classList.add('active');
+        });
+
+        registerEmailInput.addEventListener('blur', () => {
+          if (registerEmailInput.value === '') {
+            registerEmailLabel.classList.remove('active');
+          }
+        });
+      </script>
+      <script>
+        const registerDobInput = document.querySelector('.register-dob-input');
+        const registerDobLabel = document.querySelector('.register-dob');
+
+        registerDobInput.addEventListener('focus', () => {
+          registerDobLabel.classList.add('active');
+        });
+
+        registerDobInput.addEventListener('blur', () => {
+          if (registerDobInput.value === '') {
+            registerDobLabel.classList.remove('active');
+          }
+        });
+      </script>
+      
+    </div> 
+    
+  </body>
+</html>

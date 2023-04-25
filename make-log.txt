@@ -1,0 +1,57 @@
+
+> student-records@1.0.0 make
+> electron-forge make
+
+[STARTED] Checking your system
+[STARTED] Checking git exists
+[STARTED] Checking node version
+[STARTED] Checking packageManager version
+[TITLE] Found node@19.8.1
+[SUCCESS] Found node@19.8.1
+[TITLE] Found git@Git-143)
+[SUCCESS] Found git@Git-143)
+[TITLE] Found npm@9.5.1
+[SUCCESS] Found npm@9.5.1
+[SUCCESS] Checking your system
+[STARTED] Loading configuration
+[SUCCESS] Loading configuration
+[STARTED] Resolving make targets
+[DATA] Making for the following targets: zip
+[SUCCESS] Resolving make targets
+[STARTED] Running package command
+[STARTED] Preparing to package application
+[SUCCESS] Preparing to package application
+[STARTED] Running packaging hooks
+[STARTED] Running generateAssets hook
+[SUCCESS] Running generateAssets hook
+[STARTED] Running prePackage hook
+[SUCCESS] Running prePackage hook
+[SUCCESS] Running packaging hooks
+[STARTED] Packaging application
+[DATA] Determining targets...
+[STARTED] Packaging for arm64 on darwin
+[STARTED] Copying files
+[SUCCESS] Copying files
+[STARTED] Preparing native dependencies
+[TITLE] Preparing native dependencies
+[TITLE] Preparing native dependencies: 0 / 1
+[TITLE] Preparing native dependencies: 1 / 1
+[TITLE] Preparing native dependencies: 1 / 2
+[TITLE] Preparing native dependencies: 2 / 2
+[SUCCESS] Preparing native dependencies: 2 / 2
+[STARTED] Finalizing package
+[SUCCESS] Finalizing package
+[SUCCESS] Packaging for arm64 on darwin
+[SUCCESS] Packaging application
+[STARTED] Running postPackage hook
+[SUCCESS] Running postPackage hook
+[SUCCESS] Running package command
+[STARTED] Running preMake hook
+[SUCCESS] Running preMake hook
+[STARTED] Making distributables
+[STARTED] Making a zip distributable for darwin/arm64
+[SUCCESS] Making a zip distributable for darwin/arm64
+[SUCCESS] Making distributables
+[STARTED] Running postMake hook
+[DATA] Artifacts available at: /Users/matthall/Desktop/Personal-Projects/Student-Records/out/make
+[SUCCESS] Running postMake hook
